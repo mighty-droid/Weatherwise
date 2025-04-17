@@ -11,7 +11,7 @@ document.getElementById('weatherForm').addEventListener('submit', async function
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
     );
 
-    if (!response.ok) throw new Error('City not found');
+    if (!response.ok) throw new Error('City not found or invalid API key.');
 
     const data = await response.json();
     const temp = data.main.temp;
@@ -19,14 +19,13 @@ document.getElementById('weatherForm').addEventListener('submit', async function
     const icon = data.weather[0].icon;
 
     resultDiv.innerHTML = `
-      <h2>${data.name}</h2>
-      <p><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></p>
+      <h2>${data.name} <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></h2>
       <p>${temp}°C - ${description}</p>
     `;
 
     setWeatherBackground(description.toLowerCase());
 
-    // Get the 5-day forecast
+    // Now, get the 5-day forecast
     await getFiveDayForecast(city);
   } catch (err) {
     resultDiv.innerHTML = `<p>Error: ${err.message}</p>`;
@@ -67,6 +66,7 @@ async function getFiveDayForecast(city) {
   const forecastDiv = document.createElement('div');
   forecastDiv.classList.add('forecast-container');
 
+  // Filter out forecast data for noon (12:00 PM) to make it simpler
   const dailyData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
 
   dailyData.forEach(item => {
