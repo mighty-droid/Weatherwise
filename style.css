@@ -14,15 +14,15 @@ body {
   .weather-app {
     max-width: 600px;
     margin: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(26, 19, 14, 0.591);
     padding: 20px;
     border-radius: 12px;
     position: relative;
     z-index: 1;
     width: 90%;
-    max-width: 500px;
+    max-width: 700px;
     overflow-y: auto; /* Allow for vertical scrolling if needed */
-    max-height: 80vh; /* Prevent the weather app from getting too tall */
+    max-height: 95vh; /* Prevent the weather app from getting too tall */
   }
   
   input, button {
@@ -98,7 +98,7 @@ body {
   }
   
   .forecast-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.00);
   }
   
   .forecast-card img {
